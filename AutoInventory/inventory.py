@@ -61,7 +61,14 @@ class AutoInventory:
                 hit.is_checked = True
                 if hit.is_weight_management or hit.is_capacity_management:
                     print("重量or容量管理試薬です。管理単位: "+hit.control_method_unit)
-                    hit.weight = input("重量or容量を、単位を除いて書いてください: ")
+                    while 1:
+                        i = input("重量or容量を、単位を除いて書いてください: ")
+                        try:
+                            float(i)
+                            hit.weight = i
+                            break
+                        except:
+                            print("正しい量を入力してください。")
         elif IASOcode in self.not_inv_reagents.__dict__:
             hit = self.not_inv_reagents[IASOcode]
             print("棚卸対象外試薬です。")
