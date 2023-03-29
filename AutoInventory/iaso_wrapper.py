@@ -10,7 +10,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-import time
+import datetime
 
 # ロードが終わるまで待つ設定
 def ExCond(driver, xpath, kind, sec=10):
