@@ -113,16 +113,19 @@ class AutoInventory:
         if self.driver is None:
             raise RuntimeError("Webブラウザが起動していません。先に AutoInventory().IASO_login() を実行してください。")
         try:
+            current_code = ""
             registered = 0
             for code, reagent in self.inv_reagents.items():
                 # 実物確認済みで棚卸未処理で持ち出し中でないものは、通常通り棚卸が可能
                 if all([reagent.is_checked, not reagent.is_inventory_registered, not reagent.is_using]):
+                    current_code = code
                     iaso_wrapper.IASO_register(self.driver, reagent)
                     reagent.is_inventory_registered = True
                     print(f"{code} は正常に棚卸登録されました。")
                     registered += 1
         except Exception as e:
             print("棚卸登録中にエラーが発生しました。今までの情報を保存します。")
+            print(f"エラー発生箇所: 棚卸登録中 {current_code}")
             print(traceback.format_exc())
         finally:
             print(f"{registered} 本の試薬が正常に棚卸登録されました。")
