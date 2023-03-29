@@ -62,7 +62,7 @@ def IASO_logout(driver):
 def IASO_register(driver, reagent_info):
     r = reagent_info
     
-    IASO_No_input = driver.find_element_by_xpath('/html/body/div[2]/form/section[1]/ul/li[2]/input')
+    IASO_No_input = driver.find_element(By.XPATH, '/html/body/div[2]/form/section[1]/ul/li[2]/input')
     IASO_No_input.send_keys(r.iaso)
     IASO_No_input.send_keys(Keys.ENTER)
     
