@@ -1,7 +1,7 @@
 # inventory_list_detail_{ダウンロード日時}.csv のデータ取り出し
 
-from ddn import DictDotNotation as ddn
-import config
+from .ddn import DictDotNotation as ddn
+from . import config
 import csv, os, pickle
 import datetime
 

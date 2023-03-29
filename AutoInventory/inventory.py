@@ -1,6 +1,8 @@
 from pathlib import Path
 from tabulate import tabulate
-import reagents, config, iaso_wrapper
+from . import reagents
+from . import config
+from . import iaso_wrapper
 import pickle, os, traceback
 
 class AutoInventory:

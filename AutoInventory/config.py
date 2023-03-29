@@ -1,4 +1,4 @@
-from ddn import DictDotNotation as ddn
+from .ddn import DictDotNotation as ddn
 
 i_csv_header = ddn({
     "name": "試薬名",
