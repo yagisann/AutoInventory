@@ -77,7 +77,7 @@ def IASO_register(driver, reagent_info):
     if r.expire_at < datetime.datetime.now():
         ExCond(driver, "/html/body/div[5]/div[3]/div/button", "clk")
     # 棚卸登録確認画面で「はい」を押す
-    Excond(driver, "/html/body/div[5]/div[3]/div/button[1]", "clk")
+    ExCond(driver, "/html/body/div[5]/div[3]/div/button[1]", "clk")
     # 棚卸登録完了画面を閉じる
-    Excond(driver, "/html/body/div[5]/div[3]/div/button", "clk")
+    ExCond(driver, "/html/body/div[5]/div[3]/div/button", "clk")
     return
