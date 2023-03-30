@@ -3,6 +3,7 @@ from tabulate import tabulate
 from . import reagents
 from . import config
 from . import iaso_wrapper
+from .colorprinter import *
 import pickle, os, traceback
 
 class AutoInventory:
@@ -38,7 +39,7 @@ class AutoInventory:
         self.inv_reagents, self.not_inv_reagents = reagents.restore_reagent_info(name)
         return self
     
-    def search(self, IASOcode, check=False, print_code=True):
+    def search(self, IASOcode, check=False, uncheck=False, print_code=True):
         if print_code:
             print("IASOバーコードナンバー: "+IASOcode)
         if IASOcode in self.inv_reagents.__dict__:
@@ -60,7 +61,7 @@ class AutoInventory:
             if check:
                 hit.is_checked = True
                 if hit.is_weight_management or hit.is_capacity_management:
-                    print("重量or容量管理試薬です。管理単位: "+hit.control_method_unit)
+                    cprint("重量or容量管理試薬です。管理単位: "+hit.control_method_unit, Color.MAGENTA)
                     while 1:
                         i = input("重量or容量を、単位を除いて書いてください: ")
                         try:
@@ -69,6 +70,8 @@ class AutoInventory:
                             break
                         except:
                             print("正しい量を入力してください。")
+            if uncheck:
+                hit.is_checked = False
         elif IASOcode in self.not_inv_reagents.__dict__:
             hit = self.not_inv_reagents[IASOcode]
             print("棚卸対象外試薬です。")
@@ -84,6 +87,8 @@ class AutoInventory:
             print(tabulate(tmpdict, headers="keys"))
             if check:
                 hit.is_checked = True
+            if uncheck:
+                hit.is_checked = False
         else:
             print("試薬情報が見つかりませんでした")
         print("")
@@ -91,6 +96,10 @@ class AutoInventory:
     # 実在性チェック
     def check(self, IASOcode):
         self.search(IASOcode, check=True, print_code=False)
+    
+    # 間違って実在性チェックした場合
+    def uncheck(self, IASOcode):
+        self.search(IASOcode, uncheck=True, print_code=False)
     
     # 現在の状況を保存
     def save(self):
@@ -121,11 +130,11 @@ class AutoInventory:
                     current_code = code
                     iaso_wrapper.IASO_register(self.driver, reagent)
                     reagent.is_inventory_registered = True
-                    print(f"{code} は正常に棚卸登録されました。")
+                    print(f"{cform(code, Color.CYAN)} は正常に棚卸登録されました。")
                     registered += 1
         except Exception as e:
-            print("棚卸登録中にエラーが発生しました。今までの情報を保存します。")
-            print(f"エラー発生箇所: 棚卸登録中 {current_code}")
+            cprint("棚卸登録中にエラーが発生しました。今までの情報を保存します。", Color.RED)
+            cprint(f"エラー発生箇所: 棚卸登録中 {current_code}", Color.RED)
             print(traceback.format_exc())
         finally:
             print(f"{registered} 本の試薬が正常に棚卸登録されました。")
