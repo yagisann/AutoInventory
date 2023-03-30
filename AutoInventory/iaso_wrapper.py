@@ -30,8 +30,8 @@ def IASO_login(ID, PW):
     new_driver = ChromeDriverManager().install()
     service = ChromeService(executable_path=new_driver)
     driver = webdriver.Chrome(service=service, options=options)
-    driver.maximize_window()
     driver.minimize_window()
+    driver.maximize_window()
     driver.get("http://133.86.49.11/iasor7/fw/FW0000/")
     
     # ロードが終わるまで待つ
