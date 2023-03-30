@@ -68,6 +68,7 @@ def IASO_register(driver, reagent_info):
     
     # 重量or容量管理の場合
     if r.is_weight_management or r.is_capacity_management:
+        ExCond(driver, '/html/body/div[2]/form/section[2]/table/tbody/tr[1]/td[2]/ul/li[1]/input', "vis")
         wt_input = driver.find_element(By.XPATH, '/html/body/div[2]/form/section[2]/table/tbody/tr[1]/td[2]/ul/li[1]/input')
         wt_input.send_keys(r.weight)
     
