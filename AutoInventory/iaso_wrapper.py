@@ -75,7 +75,7 @@ def IASO_register(driver, reagent_info):
     ExCond(driver, "/html/body/div[1]/ul/li/button", "clk")
     # 重量or容量管理の場合、Enterで、「異常増減を検出しました」と出てくることがあるのでそれを消す
     if r.is_weight_management or r.is_capacity_management:
-        Excond(driver, "/html/body/div[5]/div[2]/div/div/div/p", "vis")
+        ExCond(driver, "/html/body/div[5]/div[2]/div/div/div/p", "vis")
         if driver.find_element(By.XPATH, "/html/body/div[5]/div[2]/div/div/div/p").text == "異常増減を検出しました。":
             ExCond(driver, "/html/body/div[5]/div[3]/div/button", "clk")
     # 使用期限切れの表示を閉じる
