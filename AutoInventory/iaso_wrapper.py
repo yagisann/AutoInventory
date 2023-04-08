@@ -11,6 +11,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 import datetime
+from .colorprinter import *
 
 # ロードが終わるまで待つ設定
 def ExCond(driver, xpath, kind, sec=10):
@@ -70,7 +71,12 @@ def IASO_register(driver, reagent_info):
     if r.is_weight_management or r.is_capacity_management:
         ExCond(driver, '/html/body/div[2]/form/section[2]/table/tbody/tr[1]/td[2]/ul/li[1]/input', "vis")
         wt_input = driver.find_element(By.XPATH, '/html/body/div[2]/form/section[2]/table/tbody/tr[1]/td[2]/ul/li[1]/input')
-        wt_input.send_keys(r.weight)
+        if not r.is_checked:
+            cprint(f"{r.iaso} | {r.name}, {r.quantity} {r.quantity_unit}\nこの試薬は重量管理ですが、重量が記録されていません。以下に重量を入力してください。", color.RED)
+            wt = input("重量を入力してください")
+            wt_input.send_keys(wt)
+        else:
+            wt_input.send_keys(r.weight)
     
     # Enterボタン
     ExCond(driver, "/html/body/div[1]/ul/li/button", "clk")
