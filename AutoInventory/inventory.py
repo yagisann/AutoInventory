@@ -143,9 +143,9 @@ class AutoInventory:
             self.save()
     
     # IASO上でも処理を一括で行う
-    def iaso_patch(self):
+    def iaso_patch(self, mode="normal"):
         self.IASO_login()
-        self.regist_inventory()
+        self.regist_inventory(mode)
         self.IASO_logout()
                     
         
