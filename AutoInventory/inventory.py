@@ -128,7 +128,7 @@ class AutoInventory:
                 input("すべての試薬の棚卸登録を行います。実行する場合はEnterを押してください。")
             for code, reagent in self.inv_reagents.items():
                 # 実物確認済みで棚卸未処理で持ち出し中でないものは、通常通り棚卸が可能
-                if all([reagent.is_checked, not reagent.is_inventory_registered, not reagent.is_using]) or all([mode=="all", not reagent.is_using]):
+                if all([reagent.is_checked, not reagent.is_inventory_registered, not reagent.is_using]) or all([mode=="all", not reagent.is_using, not reagent.is_inventory_regissterd]):
                     current_code = code
                     iaso_wrapper.IASO_register(self.driver, reagent)
                     reagent.is_inventory_registered = True
