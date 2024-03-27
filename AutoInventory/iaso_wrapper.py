@@ -72,7 +72,7 @@ def IASO_register(driver, reagent_info):
         ExCond(driver, '/html/body/div[2]/form/section[2]/table/tbody/tr[1]/td[2]/ul/li[1]/input', "vis")
         wt_input = driver.find_element(By.XPATH, '/html/body/div[2]/form/section[2]/table/tbody/tr[1]/td[2]/ul/li[1]/input')
         if not r.is_checked:
-            cprint(f"{r.iaso} | {r.name}, {r.quantity} {r.quantity_unit}\nこの試薬は重量管理ですが、重量が記録されていません。以下に重量を入力してください。", Color.RED)
+            cprint(f"{r.iaso} | {r.name}, {r.quantity} {r.quantity_unit}\nこの試薬は重量管理ですが、重量が記録されていません。以下に重量を入力してください。", color.RED)
             wt = input("重量を入力してください")
             wt_input.send_keys(wt)
         else:
