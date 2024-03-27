@@ -72,7 +72,7 @@ def IASO_register(driver, reagent_info):
         ExCond(driver, '/html/body/div[2]/form/section[2]/table/tbody/tr[1]/td[2]/ul/li[1]/input', "vis")
         wt_input = driver.find_element(By.XPATH, '/html/body/div[2]/form/section[2]/table/tbody/tr[1]/td[2]/ul/li[1]/input')
         if not r.is_checked:
-            cprint(f"{r.iaso} | {r.name}, {r.quantity} {r.quantity_unit}\nこの試薬は重量管理ですが、重量が記録されていません。以下に重量を入力してください。", color.RED)
+            cprint(f"{r.iaso} | {r.name}, {r.quantity} {r.quantity_unit}\nこの試薬は重量管理ですが、重量が記録されていません。以下に重量を入力してください。", Color.RED)
             wt = input("重量を入力してください")
             wt_input.send_keys(wt)
         else:
@@ -82,14 +82,14 @@ def IASO_register(driver, reagent_info):
     ExCond(driver, "/html/body/div[1]/ul/li/button", "clk")
     # 重量or容量管理の場合、Enterで、「異常増減を検出しました」と出てくることがあるのでそれを消す
     if r.is_weight_management or r.is_capacity_management:
-        ExCond(driver, "/html/body/div[5]/div[2]/div/div/div/p", "vis")
-        if driver.find_element(By.XPATH, "/html/body/div[5]/div[2]/div/div/div/p").text == "異常増減を検出しました。":
-            ExCond(driver, "/html/body/div[5]/div[3]/div/button", "clk")
+        ExCond(driver, "/html/body/div[4]/div[2]/div/div/div/p", "vis")
+        if driver.find_element(By.XPATH, "/html/body/div[4]/div[2]/div/div/div/p").text == "異常増減を検出しました。":
+            ExCond(driver, "/html/body/div[4]/div[3]/div/button", "clk")
     # 使用期限切れの表示を閉じる
     if r.expire_at < datetime.datetime.now():
-        ExCond(driver, "/html/body/div[5]/div[3]/div/button", "clk")
+        ExCond(driver, "/html/body/div[4]/div[3]/div/button", "clk")
     # 棚卸登録確認画面で「はい」を押す
-    ExCond(driver, "/html/body/div[5]/div[3]/div/button[1]", "clk")
+    ExCond(driver, "/html/body/div[4]/div[3]/div/button[1]", "clk")
     # 棚卸登録完了画面を閉じる
-    ExCond(driver, "/html/body/div[5]/div[3]/div/button", "clk")
+    ExCond(driver, "/html/body/div[4]/div[3]/div/button", "clk")
     return

@@ -9,7 +9,7 @@ import datetime
 def get_inventory_reagent_info(inventory_list_path):
     with open(inventory_list_path, "r") as f:
         reader = csv.reader(f)
-        data = [i for i in reader if len(i)==134]
+        data = [i for i in reader if len(i)==136]
     all_reagent = ddn()
     for i in data[1:]:
         if i[0] == "":
@@ -24,14 +24,14 @@ def get_inventory_reagent_info(inventory_list_path):
             "iaso": i[10],
             "alias": [name for name in i[16:18] if name!=""], # 別名
             "storage_condition": i[30],
-            "is_weight_management": i[58]=="重量管理",
-            "is_capacity_management": i[58]=="容量管理",
-            "control_method_unit": i[60],
-            "sds": i[73],
-            "storage_location": "/".join([loc for loc in i[88:92] if loc!=""]),
-            "is_sealed": i[100]=="●",
-            "is_using": i[103]=="●",
-            "expire_at": datetime.datetime.strptime(i[99], "%Y/%m/%d"),
+            "is_weight_management": i[59]=="重量管理",
+            "is_capacity_management": i[59]=="容量管理",
+            "control_method_unit": i[61],
+            "sds": i[74],
+            "storage_location": "/".join([loc for loc in i[89:93] if loc!=""]),
+            "is_sealed": i[101]=="●",
+            "is_using": i[104]=="●",
+            "expire_at": datetime.datetime.strptime(i[100], "%Y/%m/%d"),
             "is_inventory_registered": i[11]!="",
             "is_checked": False,
             "weight": ""
@@ -43,7 +43,7 @@ def get_inventory_reagent_info(inventory_list_path):
 def get_stock_reagent_info(stock_list_path):
     with open(stock_list_path, "r") as f:
         reader = csv.reader(f)
-        data = [i for i in reader if len(i)==14]
+        data = [i for i in reader if len(i)==133]
     all_reagent = ddn()
     for i in data[1:]:
         if i[0] == "":

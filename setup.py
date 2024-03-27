@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='AutoInventory',
-    version='1.0.9',
+    version='1.0.10',
     description='棚卸の自動化コード、IASOに対応',
     author="yagisann",
     packages=find_packages(),
